@@ -2,13 +2,14 @@ package logger
 
 // Config for logger
 type Config struct {
-	Host string
+	Host    string
+	Service string
 }
 
-func DefaultConfig(host string) *Config {
+func DefaultConfig(host, service string) *Config {
 	if len(host) < 2 {
 		host = "localhost:17000"
 	}
 
-	return &Config{Host: host}
+	return &Config{Host: host, Service: service}
 }

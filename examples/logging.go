@@ -1,7 +1,17 @@
 package main
 
-import octobus "github.com/ghatdev/octobus-go"
+import (
+	"log"
+
+	octobus "github.com/ghatdev/octobus-go"
+)
 
 func main() {
-	octobus.New(octobus.DefaultConfig(""))
+	logger := octobus.New(octobus.DefaultConfig("", "Default"))
+	err := logger.Dial()
+	if err != nil {
+		log.Println(err)
+	}
+
+	logger.Log("a", "DEBUG", "E", "p")
 }
