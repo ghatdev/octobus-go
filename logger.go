@@ -3,7 +3,12 @@ package logger
 import (
 	"encoding/json"
 	"net"
+	"time"
 )
+
+type Log interface {
+	Log()
+}
 
 // Logger struct
 type Logger struct {
@@ -17,6 +22,7 @@ type log struct {
 	Type    string
 	Tag     string
 	Value   string
+	Time    time.Time `json:"_id" bson:"_id"`
 }
 
 type M map[interface{}]interface{}
