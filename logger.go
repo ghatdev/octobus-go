@@ -49,7 +49,7 @@ func (l *Logger) Dial() error {
 // Logging a Log
 // Marshals values as map
 func (l *Logger) Log(key, t, tag string, value interface{}) error {
-	logPayload := log{Key: key, Type: t, Tag: tag, Service: l.Config.Service}
+	logPayload := log{Key: key, Type: t, Tag: tag, Service: l.Config.Service, Time: time.Now()}
 
 	switch value.(type) {
 	case string: // case json-string or else plain string
