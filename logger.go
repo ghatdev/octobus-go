@@ -11,11 +11,11 @@ type Octobus struct {
 // Logger is interface for using this logger
 //
 type Logger interface {
-	Log() error
+	Log(string, string, interface{}) error
+	Dial() error
 }
 
 type log struct {
-	Key     string
 	Service string
 	Type    string
 	Tag     string

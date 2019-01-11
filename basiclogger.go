@@ -13,7 +13,7 @@ type BasicLogger struct {
 
 // Dial to Server
 // Now for using TCP or HTTP
-func (l *BasicLogger) Dial() error {
+func (l BasicLogger) Dial() error {
 	conn, err := net.Dial("tcp", l.Config.Host)
 	if err != nil {
 		return err
@@ -26,8 +26,8 @@ func (l *BasicLogger) Dial() error {
 // Log func
 // Logging a Log
 // Marshals values as map
-func (l *BasicLogger) Log(key, t, tag string, value interface{}) error {
-	logPayload := log{Key: key, Type: t, Tag: tag, Service: l.Config.Service, Time: time.Now()}
+func (l BasicLogger) Log(t, tag string, value interface{}) error {
+	logPayload := log{Type: t, Tag: tag, Service: l.Config.Service, Time: time.Now()}
 
 	switch value.(type) {
 	case string: // case json-string or else plain string
