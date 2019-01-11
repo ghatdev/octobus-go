@@ -1,4 +1,4 @@
-package logger
+package octobus
 
 // Config for logger
 type Config struct {

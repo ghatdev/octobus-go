@@ -1,19 +1,18 @@
-package logger
+package octobus
 
 import (
-	"encoding/json"
-	"net"
 	"time"
 )
 
-type Log interface {
-	Log()
+type Octobus struct {
+	Logger
 }
 
-// Logger struct
-type Logger struct {
-	Config *Config
-	conn   net.Conn
+// Logger is interface for using this logger
+//
+type Logger interface {
+	Log() error
+	Config() error
 }
 
 type log struct {
@@ -29,41 +28,6 @@ type M map[interface{}]interface{}
 
 // New func
 // Make new default logger
-func New(c *Config) *Logger {
-	return &Logger{Config: c}
-}
-
-// Dial to Server
-// Now for using TCP or HTTP
-func (l *Logger) Dial() error {
-	conn, err := net.Dial("tcp", l.Config.Host)
-	if err != nil {
-		return err
-	}
-
-	l.conn = conn
-	return nil
-}
-
-// Log func
-// Logging a Log
-// Marshals values as map
-func (l *Logger) Log(key, t, tag string, value interface{}) error {
-	logPayload := log{Key: key, Type: t, Tag: tag, Service: l.Config.Service, Time: time.Now()}
-
-	switch value.(type) {
-	case string: // case json-string or else plain string
-		logPayload.Value = value.(string)
-	case M: // case marshall map. Need to marshall to json or else (now for json)
-		data, err := json.Marshal(value.(M))
-		if err != nil {
-			return err
-		}
-
-		logPayload.Value = string(data)
-	default:
-		return TypeNotMatch
-	}
-
-	return json.NewEncoder(l.conn).Encode(&logPayload)
+func New(logger Logger) *Octobus {
+	return &Octobus{Logger: logger}
 }
