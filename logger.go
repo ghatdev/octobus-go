@@ -12,7 +12,6 @@ type Octobus struct {
 //
 type Logger interface {
 	Log() error
-	Config() error
 }
 
 type log struct {
