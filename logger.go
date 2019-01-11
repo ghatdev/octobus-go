@@ -30,3 +30,23 @@ type M map[interface{}]interface{}
 func New(logger Logger) *Octobus {
 	return &Octobus{Logger: logger}
 }
+
+func (o *Octobus) Dial() error {
+	return o.Logger.Dial()
+}
+
+func (o *Octobus) Log(t, tag string, value interface{}) {
+	o.Logger.Log(t, tag, value)
+}
+
+func (o *Octobus) Debug(t string, value interface{}) {
+	o.Logger.Log(t, "DEBUG", value)
+}
+
+func (o *Octobus) Info(t string, value interface{}) {
+	o.Logger.Log(t, "INFO", value)
+}
+
+func (o *Octobus) Fatal(t string, value interface{}) {
+	o.Logger.Log(t, "FATAL", value)
+}

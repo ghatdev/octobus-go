@@ -7,11 +7,12 @@ import (
 )
 
 func main() {
-	logger := octobus.New(octobus.DefaultConfig("", "test1"))
+	logger := octobus.New(&octobus.BasicLogger{Config: octobus.DefaultConfig("localhost:17000", "default")})
 	err := logger.Dial()
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 	}
 
-	logger.Log("a", "b", "E", "p")
+	logger.Log("b", "E", "p")
+	logger.Debug("d", "blabla")
 }
